@@ -35,10 +35,40 @@
             font-weight: 600;
             z-index: 1000;
         }
+        
+        .error-message {
+            color: #e53e3e;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .success-message {
+            color: #38a169;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #805ad5;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 min-h-screen">
-    <div class="demo-badge">DEMO - Sistema de Login Simulado</div>
+    <div class="demo-badge">SISTEMA DE LOGIN REAL</div>
     
     <div id="loginScreen" class="min-h-screen flex items-center justify-center p-4">
         <div class="login-form rounded-2xl p-8 w-full max-w-md shadow-2xl">
@@ -51,15 +81,26 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Nome de usuário</label>
                     <input type="text" id="username" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Digite seu nome de usuário" required>
+                    <div id="usernameError" class="error-message"></div>
                 </div>
                 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Senha</label>
                     <input type="password" id="password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Digite sua senha" required>
+                    <div id="passwordError" class="error-message"></div>
                 </div>
                 
-                <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105">
-                    Entrar
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="rememberMe" class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded">
+                        <label for="rememberMe" class="ml-2 block text-sm text-gray-700">Lembrar-me</label>
+                    </div>
+                    <button type="button" id="forgotPassword" class="text-sm text-purple-600 hover:text-purple-800">Esqueceu a senha?</button>
+                </div>
+                
+                <button type="submit" id="loginButton" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105 flex justify-center items-center">
+                    <span id="loginText">Entrar</span>
+                    <div id="loginSpinner" class="loading-spinner ml-2"></div>
                 </button>
             </form>
             
@@ -71,11 +112,66 @@
             
             <div class="mt-4 p-3 bg-blue-50 rounded-lg">
                 <p class="text-xs text-blue-600 text-center">
-                    💡 <strong>Contas disponíveis:</strong><br>
-                    • vitor202 / admin2025 (👑 Dono Verificado)<br>
-                    • admin / 123456 (🛡️ Admin Verificado)<br>
-                    • demo / demo (👤 Usuário Normal)<br>
-                    • Ou use qualquer usuário/senha
+                    💡 <strong>Conta do proprietário:</strong><br>
+                    • vitor202 / admin (👑 Dono Verificado)
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="registerScreen" class="hidden min-h-screen flex items-center justify-center p-4">
+        <div class="login-form rounded-2xl p-8 w-full max-w-md shadow-2xl">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-purple-600 mb-2">🎮 EduPlay</h1>
+                <p class="text-gray-600">Criar nova conta</p>
+            </div>
+            
+            <form id="registerForm" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Nome completo</label>
+                    <input type="text" id="fullName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Digite seu nome completo" required>
+                    <div id="fullNameError" class="error-message"></div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Nome de usuário</label>
+                    <input type="text" id="newUsername" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Escolha um nome de usuário" required>
+                    <div id="newUsernameError" class="error-message"></div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">E-mail</label>
+                    <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Digite seu e-mail" required>
+                    <div id="emailError" class="error-message"></div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Senha</label>
+                    <input type="password" id="newPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Crie uma senha" required>
+                    <div id="newPasswordError" class="error-message"></div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Confirmar senha</label>
+                    <input type="password" id="confirmPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Digite a senha novamente" required>
+                    <div id="confirmPasswordError" class="error-message"></div>
+                </div>
+                
+                <div class="flex items-center">
+                    <input type="checkbox" id="terms" class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded" required>
+                    <label for="terms" class="ml-2 block text-sm text-gray-700">Aceito os <a href="#" class="text-purple-600 hover:text-purple-800">termos de uso</a> e <a href="#" class="text-purple-600 hover:text-purple-800">política de privacidade</a></label>
+                </div>
+                <div id="termsError" class="error-message"></div>
+                
+                <button type="submit" id="registerButton" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105 flex justify-center items-center">
+                    <span id="registerText">Criar conta</span>
+                    <div id="registerSpinner" class="loading-spinner ml-2"></div>
+                </button>
+            </form>
+            
+            <div class="mt-6 text-center">
+                <p class="text-sm text-gray-600">Já tem conta? 
+                    <button id="backToLogin" class="text-purple-600 hover:text-purple-800 font-medium">Fazer login</button>
                 </p>
             </div>
         </div>
@@ -317,7 +413,191 @@
     </div>
 
     <script>
-        let currentUser = '';
+        // Sistema de Autenticação Real
+        class AuthSystem {
+            constructor() {
+                this.users = this.loadUsers();
+                this.currentUser = null;
+                this.currentSession = null;
+            }
+            
+            // Carregar usuários do localStorage
+            loadUsers() {
+                const storedUsers = localStorage.getItem('eduplay_users');
+                if (storedUsers) {
+                    return JSON.parse(storedUsers);
+                } else {
+                    // Usuário padrão (vitor202)
+                    const defaultUsers = {
+                        'vitor202': {
+                            id: this.generateId(),
+                            username: 'vitor202',
+                            password: this.hashPassword('admin'),
+                            fullName: 'Vitor',
+                            email: 'vitor@eduplay.com',
+                            role: 'owner',
+                            verified: true,
+                            createdAt: new Date().toISOString(),
+                            lastLogin: null
+                        }
+                    };
+                    this.saveUsers(defaultUsers);
+                    return defaultUsers;
+                }
+            }
+            
+            // Salvar usuários no localStorage
+            saveUsers(users) {
+                localStorage.setItem('eduplay_users', JSON.stringify(users));
+            }
+            
+            // Gerar ID único
+            generateId() {
+                return 'user_' + Math.random().toString(36).substr(2, 9) + Date.now().toString(36);
+            }
+            
+            // Hash simples de senha (em um sistema real, use bcrypt)
+            hashPassword(password) {
+                // Simulação de hash - em produção use uma biblioteca adequada
+                let hash = 0;
+                for (let i = 0; i < password.length; i++) {
+                    const char = password.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char;
+                    hash = hash & hash; // Convert to 32bit integer
+                }
+                return hash.toString();
+            }
+            
+            // Verificar senha
+            verifyPassword(password, hashedPassword) {
+                return this.hashPassword(password) === hashedPassword;
+            }
+            
+            // Registrar novo usuário
+            register(userData) {
+                return new Promise((resolve, reject) => {
+                    // Validações
+                    if (this.users[userData.username]) {
+                        reject('Nome de usuário já existe');
+                        return;
+                    }
+                    
+                    if (userData.password !== userData.confirmPassword) {
+                        reject('As senhas não coincidem');
+                        return;
+                    }
+                    
+                    if (userData.password.length < 6) {
+                        reject('A senha deve ter pelo menos 6 caracteres');
+                        return;
+                    }
+                    
+                    // Criar novo usuário
+                    const newUser = {
+                        id: this.generateId(),
+                        username: userData.username,
+                        password: this.hashPassword(userData.password),
+                        fullName: userData.fullName,
+                        email: userData.email,
+                        role: 'user',
+                        verified: false,
+                        createdAt: new Date().toISOString(),
+                        lastLogin: null
+                    };
+                    
+                    // Adicionar ao sistema
+                    this.users[userData.username] = newUser;
+                    this.saveUsers(this.users);
+                    
+                    resolve(newUser);
+                });
+            }
+            
+            // Login
+            login(username, password, rememberMe = false) {
+                return new Promise((resolve, reject) => {
+                    // Simular delay de rede
+                    setTimeout(() => {
+                        const user = this.users[username];
+                        
+                        if (!user) {
+                            reject('Usuário não encontrado');
+                            return;
+                        }
+                        
+                        if (!this.verifyPassword(password, user.password)) {
+                            reject('Senha incorreta');
+                            return;
+                        }
+                        
+                        // Atualizar último login
+                        user.lastLogin = new Date().toISOString();
+                        this.saveUsers(this.users);
+                        
+                        // Criar sessão
+                        this.currentUser = user;
+                        this.currentSession = {
+                            token: this.generateToken(),
+                            expiresAt: new Date(Date.now() + (rememberMe ? 30 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000)) // 30 dias ou 1 dia
+                        };
+                        
+                        // Salvar sessão no localStorage se "lembrar-me" estiver ativo
+                        if (rememberMe) {
+                            localStorage.setItem('eduplay_session', JSON.stringify({
+                                username: user.username,
+                                token: this.currentSession.token,
+                                expiresAt: this.currentSession.expiresAt.toISOString()
+                            }));
+                        }
+                        
+                        resolve(user);
+                    }, 1000); // Simular delay de rede
+                });
+            }
+            
+            // Logout
+            logout() {
+                this.currentUser = null;
+                this.currentSession = null;
+                localStorage.removeItem('eduplay_session');
+            }
+            
+            // Verificar se há sessão ativa
+            checkActiveSession() {
+                const storedSession = localStorage.getItem('eduplay_session');
+                if (storedSession) {
+                    const session = JSON.parse(storedSession);
+                    const expiresAt = new Date(session.expiresAt);
+                    
+                    if (expiresAt > new Date()) {
+                        // Sessão ainda é válida
+                        const user = this.users[session.username];
+                        if (user) {
+                            this.currentUser = user;
+                            this.currentSession = {
+                                token: session.token,
+                                expiresAt: expiresAt
+                            };
+                            return user;
+                        }
+                    } else {
+                        // Sessão expirada
+                        localStorage.removeItem('eduplay_session');
+                    }
+                }
+                return null;
+            }
+            
+            // Gerar token de sessão
+            generateToken() {
+                return 'token_' + Math.random().toString(36).substr(2) + Date.now().toString(36);
+            }
+        }
+
+        // Inicializar sistema de autenticação
+        const authSystem = new AuthSystem();
+        
+        // Elementos da UI
         let currentGame = '';
         
         const games = {
@@ -353,85 +633,204 @@
             }
         };
         
-        // Contas pré-cadastradas (Simulado)
-        const registeredUsers = {
-            'vitor202': { password: 'admin2025', role: 'owner', verified: true },
-            'demo': { password: 'demo', role: 'user', verified: false },
-            'admin': { password: '123456', role: 'admin', verified: true }
-        };
+        // Inicializar a aplicação
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar se há uma sessão ativa
+            const activeUser = authSystem.checkActiveSession();
+            if (activeUser) {
+                showGameScreen(activeUser);
+            }
+            
+            // Event Listeners
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+            document.getElementById('registerForm').addEventListener('submit', handleRegister);
+            document.getElementById('registerBtn').addEventListener('click', showRegisterScreen);
+            document.getElementById('backToLogin').addEventListener('click', showLoginScreen);
+            document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+            document.getElementById('forgotPassword').addEventListener('click', handleForgotPassword);
+        });
         
-        let currentUserRole = 'user';
-        
-        // Sistema de Login (Simulado)
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        // Função de login
+        async function handleLogin(e) {
             e.preventDefault();
+            
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
             
-            // Verificar se é uma conta pré-cadastrada
-            if (registeredUsers[username] && registeredUsers[username].password === password) {
-                currentUser = username;
-                currentUserRole = registeredUsers[username].role;
-                const isVerified = registeredUsers[username].verified;
-                
-                // Criar texto de boas-vindas com verificação
-                let welcomeText = `Olá, ${username}!`;
-                if (isVerified) {
-                    if (currentUserRole === 'owner') {
-                        welcomeText += ' ✅👑 (Dono Verificado)';
-                    } else if (currentUserRole === 'admin') {
-                        welcomeText += ' ✅🛡️ (Admin Verificado)';
-                    } else {
-                        welcomeText += ' ✅';
-                    }
-                }
-                
-                document.getElementById('welcomeUser').textContent = welcomeText;
-                document.getElementById('loginScreen').classList.add('hidden');
-                document.getElementById('gameScreen').classList.remove('hidden');
-                
-                // Mostrar painel admin se for admin ou owner
-                if (currentUserRole === 'admin' || currentUserRole === 'owner') {
-                    document.getElementById('adminPanel').classList.remove('hidden');
-                }
-                
-                // Mostrar mensagem de boas-vindas personalizada
-                if (username === 'vitor202') {
-                    setTimeout(() => {
-                        alert('🎉 Bem-vindo de volta, Vitor!\n\n👑 Você é o dono verificado do site!\nAcesso total ao painel administrativo liberado.');
-                    }, 500);
-                } else if (currentUserRole === 'admin') {
-                    setTimeout(() => {
-                        alert('🛡️ Bem-vindo, Administrador!\n\nVocê tem acesso ao painel administrativo.');
-                    }, 500);
-                }
-            } else if (username && password) {
-                // Permitir qualquer login para demonstração
-                currentUser = username;
-                currentUserRole = 'user';
-                document.getElementById('welcomeUser').textContent = `Olá, ${username}!`;
-                document.getElementById('loginScreen').classList.add('hidden');
-                document.getElementById('gameScreen').classList.remove('hidden');
-            } else {
-                alert('Por favor, preencha todos os campos!');
+            // Limpar erros anteriores
+            clearErrors();
+            
+            // Validação básica
+            if (!username || !password) {
+                showError('usernameError', 'Por favor, preencha todos os campos');
+                return;
             }
-        });
+            
+            // Mostrar loading
+            showLoading('login');
+            
+            try {
+                const user = await authSystem.login(username, password, rememberMe);
+                showGameScreen(user);
+            } catch (error) {
+                showError('passwordError', error);
+            } finally {
+                hideLoading('login');
+            }
+        }
         
-        // Botão de Cadastro (Simulado)
-        document.getElementById('registerBtn').addEventListener('click', function() {
-            alert('Funcionalidade de cadastro seria implementada aqui!\n\nPara esta demonstração, use qualquer nome de usuário e senha para entrar.');
-        });
+        // Função de registro
+        async function handleRegister(e) {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value;
+            const username = document.getElementById('newUsername').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const terms = document.getElementById('terms').checked;
+            
+            // Limpar erros anteriores
+            clearErrors();
+            
+            // Validações
+            if (!fullName || !username || !email || !password || !confirmPassword) {
+                showError('newUsernameError', 'Por favor, preencha todos os campos');
+                return;
+            }
+            
+            if (!terms) {
+                showError('termsError', 'Você deve aceitar os termos de uso');
+                return;
+            }
+            
+            // Mostrar loading
+            showLoading('register');
+            
+            try {
+                const userData = {
+                    fullName,
+                    username,
+                    email,
+                    password,
+                    confirmPassword
+                };
+                
+                const newUser = await authSystem.register(userData);
+                showSuccess('Conta criada com sucesso! Faça login para continuar.');
+                showLoginScreen();
+            } catch (error) {
+                showError('newUsernameError', error);
+            } finally {
+                hideLoading('register');
+            }
+        }
         
-        // Logout
-        document.getElementById('logoutBtn').addEventListener('click', function() {
-            currentUser = '';
-            currentUserRole = 'user';
-            document.getElementById('adminPanel').classList.add('hidden');
+        // Função de logout
+        function handleLogout() {
+            authSystem.logout();
+            showLoginScreen();
+        }
+        
+        // Função de esqueci a senha
+        function handleForgotPassword() {
+            alert('Funcionalidade de recuperação de senha seria implementada aqui!\n\nEm um sistema real, enviaríamos um e-mail com um link para redefinir sua senha.');
+        }
+        
+        // Mostrar tela de jogos
+        function showGameScreen(user) {
+            // Criar texto de boas-vindas com verificação
+            let welcomeText = `Olá, ${user.username}!`;
+            if (user.verified) {
+                if (user.role === 'owner') {
+                    welcomeText += ' ✅👑 (Dono Verificado)';
+                } else if (user.role === 'admin') {
+                    welcomeText += ' ✅🛡️ (Admin Verificado)';
+                } else {
+                    welcomeText += ' ✅';
+                }
+            }
+            
+            document.getElementById('welcomeUser').textContent = welcomeText;
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('registerScreen').classList.add('hidden');
+            document.getElementById('gameScreen').classList.remove('hidden');
+            
+            // Mostrar painel admin se for admin ou owner
+            if (user.role === 'admin' || user.role === 'owner') {
+                document.getElementById('adminPanel').classList.remove('hidden');
+            }
+            
+            // Mostrar mensagem de boas-vindas personalizada
+            if (user.username === 'vitor202') {
+                setTimeout(() => {
+                    alert('🎉 Bem-vindo de volta, Vitor!\n\n👑 Você é o dono verificado do site!\nAcesso total ao painel administrativo liberado.');
+                }, 500);
+            } else if (user.role === 'admin') {
+                setTimeout(() => {
+                    alert('🛡️ Bem-vindo, Administrador!\n\nVocê tem acesso ao painel administrativo.');
+                }, 500);
+            }
+        }
+        
+        // Mostrar tela de login
+        function showLoginScreen() {
             document.getElementById('loginScreen').classList.remove('hidden');
+            document.getElementById('registerScreen').classList.add('hidden');
             document.getElementById('gameScreen').classList.add('hidden');
-            document.getElementById('username').value = '';
-            document.getElementById('password').value = '';
-        });
+            clearForm('loginForm');
+            clearErrors();
+        }
+        
+        // Mostrar tela de registro
+        function showRegisterScreen() {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('registerScreen').classList.remove('hidden');
+            document.getElementById('gameScreen').classList.add('hidden');
+            clearForm('registerForm');
+            clearErrors();
+        }
+        
+        // Limpar formulário
+        function clearForm(formId) {
+            document.getElementById(formId).reset();
+        }
+        
+        // Limpar mensagens de erro
+        function clearErrors() {
+            const errorElements = document.querySelectorAll('.error-message');
+            errorElements.forEach(el => {
+                el.style.display = 'none';
+                el.textContent = '';
+            });
+        }
+        
+        // Mostrar erro
+        function showError(elementId, message) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.style.display = 'block';
+        }
+        
+        // Mostrar sucesso
+        function showSuccess(message) {
+            alert(message);
+        }
+        
+        // Mostrar loading
+        function showLoading(type) {
+            document.getElementById(`${type}Text`).style.display = 'none';
+            document.getElementById(`${type}Spinner`).style.display = 'block';
+            document.getElementById(`${type}Button`).disabled = true;
+        }
+        
+        // Esconder loading
+        function hideLoading(type) {
+            document.getElementById(`${type}Text`).style.display = 'block';
+            document.getElementById(`${type}Spinner`).style.display = 'none';
+            document.getElementById(`${type}Button`).disabled = false;
+        }
         
         // Iniciar Jogo
         function startGame(gameType) {
@@ -464,15 +863,15 @@
         
         // Funções do Painel Administrativo
         function manageUsers() {
-            if (currentUserRole === 'owner' || currentUserRole === 'admin') {
-                alert('👥 Gerenciamento de Usuários\n\n• Total de usuários: 1,247\n• Usuários ativos hoje: 156\n• Novos cadastros esta semana: 23\n\nEm um sistema real, aqui você poderia:\n- Ver lista completa de usuários\n- Editar permissões\n- Banir/desbanir usuários\n- Ver histórico de atividades');
+            if (authSystem.currentUser.role === 'owner' || authSystem.currentUser.role === 'admin') {
+                alert('👥 Gerenciamento de Usuários\n\n• Total de usuários: ' + Object.keys(authSystem.users).length + '\n• Usuários ativos hoje: 156\n• Novos cadastros esta semana: 23\n\nEm um sistema real, aqui você poderia:\n- Ver lista completa de usuários\n- Editar permissões\n- Banir/desbanir usuários\n- Ver histórico de atividades');
             } else {
                 alert('❌ Acesso negado! Apenas administradores podem acessar esta função.');
             }
         }
         
         function manageGames() {
-            if (currentUserRole === 'owner' || currentUserRole === 'admin') {
+            if (authSystem.currentUser.role === 'owner' || authSystem.currentUser.role === 'admin') {
                 alert('🎮 Gerenciamento de Jogos\n\n• Total de jogos: 6\n• Jogos mais populares: Quiz de Matemática\n• Média de tempo por sessão: 12 min\n\nEm um sistema real, aqui você poderia:\n- Adicionar novos jogos\n- Editar jogos existentes\n- Ver estatísticas de cada jogo\n- Configurar níveis de dificuldade');
             } else {
                 alert('❌ Acesso negado! Apenas administradores podem acessar esta função.');
@@ -480,7 +879,7 @@
         }
         
         function viewReports() {
-            if (currentUserRole === 'owner' || currentUserRole === 'admin') {
+            if (authSystem.currentUser.role === 'owner' || authSystem.currentUser.role === 'admin') {
                 alert('📊 Relatórios do Sistema\n\n• Uptime: 99.2%\n• Jogos jogados hoje: 342\n• Taxa de conclusão: 78%\n• Usuários mais ativos: 45\n\nEm um sistema real, aqui você teria:\n- Gráficos detalhados\n- Relatórios exportáveis\n- Análise de performance\n- Métricas de engajamento');
             } else {
                 alert('❌ Acesso negado! Apenas administradores podem acessar esta função.');
@@ -489,15 +888,16 @@
         
         // Funções Disponíveis para Todos os Usuários
         function viewProfile() {
-            const userInfo = registeredUsers[currentUser] || { role: 'user', verified: false };
-            const roleText = userInfo.role === 'owner' ? '👑 Dono do Site' : 
-                               userInfo.role === 'admin' ? '🛡️ Administrador' : '👤 Usuário';
-            const verifiedText = userInfo.verified ? '✅ Verificado' : '❌ Não Verificado';
+            const user = authSystem.currentUser;
+            const roleText = user.role === 'owner' ? '👑 Dono do Site' : 
+                               user.role === 'admin' ? '🛡️ Administrador' : '👤 Usuário';
+            const verifiedText = user.verified ? '✅ Verificado' : '❌ Não Verificado';
             
-            alert(`👤 Perfil de ${currentUser}\n\n` +
+            alert(`👤 Perfil de ${user.username}\n\n` +
                   `🎯 Cargo: ${roleText}\n` +
                   `${verifiedText}\n` +
-                  `📅 Membro desde: Janeiro 2024\n` +
+                  `📧 E-mail: ${user.email}\n` +
+                  `📅 Membro desde: ${new Date(user.createdAt).toLocaleDateString('pt-BR')}\n` +
                   `🎮 Jogos favoritos: Matemática, Ciências\n` +
                   `🏆 Nível atual: Intermediário\n` +
                   `⭐ Pontos totais: 2,450`);
@@ -562,7 +962,7 @@
         
         function downloadProgress() {
             alert('💾 Preparando download do seu progresso...\n\n' +
-                  'Arquivo: eduplay_progresso_' + currentUser + '.json\n' +
+                  'Arquivo: eduplay_progresso_' + authSystem.currentUser.username + '.json\n' +
                   'Tamanho: 2.4 KB\n\n' +
                   'Conteúdo incluído:\n' +
                   '• Estatísticas completas\n' +
@@ -574,7 +974,7 @@
         
         function shareProfile() {
             const shareText = `🎮 Confira meu perfil no EduPlay!\n\n` +
-                              `👤 ${currentUser}\n` +
+                              `👤 ${authSystem.currentUser.username}\n` +
                               `🎯 12 jogos completados\n` +
                               `⭐ 85% de taxa de acerto\n` +
                               `🏆 2,450 pontos totais\n\n` +
