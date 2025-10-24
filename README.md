@@ -40,7 +40,6 @@
 <body class="bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 min-h-screen">
     <div class="demo-badge">DEMO - Sistema de Login Simulado</div>
     
-    <!-- Tela de Login -->
     <div id="loginScreen" class="min-h-screen flex items-center justify-center p-4">
         <div class="login-form rounded-2xl p-8 w-full max-w-md shadow-2xl">
             <div class="text-center mb-8">
@@ -82,9 +81,7 @@
         </div>
     </div>
     
-    <!-- Tela Principal dos Jogos -->
     <div id="gameScreen" class="hidden min-h-screen">
-        <!-- Header -->
         <header class="bg-white shadow-lg">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center py-4">
@@ -101,16 +98,13 @@
             </div>
         </header>
         
-        <!-- Conteúdo Principal -->
         <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="text-center mb-12">
                 <h2 class="text-4xl font-bold text-white mb-4">Escolha seu Jogo Educativo!</h2>
                 <p class="text-xl text-white opacity-90">Aprenda brincando com nossos jogos interativos</p>
             </div>
             
-            <!-- Grid de Jogos -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Jogo 1: Quiz de Matemática -->
                 <div class="game-card bg-white rounded-2xl p-6 shadow-lg cursor-pointer" onclick="startGame('math')">
                     <div class="text-center">
                         <div class="text-6xl mb-4">🔢</div>
@@ -124,7 +118,6 @@
                     </div>
                 </div>
                 
-                <!-- Jogo 2: Palavras Cruzadas -->
                 <div class="game-card bg-white rounded-2xl p-6 shadow-lg cursor-pointer" onclick="startGame('words')">
                     <div class="text-center">
                         <div class="text-6xl mb-4">📝</div>
@@ -138,7 +131,6 @@
                     </div>
                 </div>
                 
-                <!-- Jogo 3: Quiz de Ciências -->
                 <div class="game-card bg-white rounded-2xl p-6 shadow-lg cursor-pointer" onclick="startGame('science')">
                     <div class="text-center">
                         <div class="text-6xl mb-4">🔬</div>
@@ -152,7 +144,6 @@
                     </div>
                 </div>
                 
-                <!-- Jogo 4: Geografia Mundial -->
                 <div class="game-card bg-white rounded-2xl p-6 shadow-lg cursor-pointer" onclick="startGame('geography')">
                     <div class="text-center">
                         <div class="text-6xl mb-4">🌍</div>
@@ -166,7 +157,6 @@
                     </div>
                 </div>
                 
-                <!-- Jogo 5: História do Brasil -->
                 <div class="game-card bg-white rounded-2xl p-6 shadow-lg cursor-pointer" onclick="startGame('history')">
                     <div class="text-center">
                         <div class="text-6xl mb-4">📚</div>
@@ -180,7 +170,6 @@
                     </div>
                 </div>
                 
-                <!-- Jogo 6: Inglês Básico -->
                 <div class="game-card bg-white rounded-2xl p-6 shadow-lg cursor-pointer" onclick="startGame('english')">
                     <div class="text-center">
                         <div class="text-6xl mb-4">🇺🇸</div>
@@ -195,7 +184,6 @@
                 </div>
             </div>
             
-            <!-- Painel Administrativo -->
             <div id="adminPanel" class="hidden mt-12 bg-gradient-to-r from-red-500 to-purple-600 rounded-2xl p-8 shadow-lg text-white">
                 <h3 class="text-3xl font-bold mb-6 text-center">🛡️ Painel Administrativo</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -238,7 +226,6 @@
                 </div>
             </div>
 
-            <!-- Painel de Funcionalidades para Todos -->
             <div class="mt-12 bg-white rounded-2xl p-8 shadow-lg">
                 <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">🎯 Funcionalidades Disponíveis</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
@@ -285,7 +272,6 @@
                 </div>
             </div>
 
-            <!-- Estatísticas do Usuário -->
             <div class="mt-8 bg-white rounded-2xl p-8 shadow-lg">
                 <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Suas Estatísticas</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -312,7 +298,6 @@
         </main>
     </div>
     
-    <!-- Modal de Jogo -->
     <div id="gameModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
         <div class="bg-white rounded-2xl p-8 max-w-md w-full">
             <div class="text-center">
@@ -506,7 +491,7 @@
         function viewProfile() {
             const userInfo = registeredUsers[currentUser] || { role: 'user', verified: false };
             const roleText = userInfo.role === 'owner' ? '👑 Dono do Site' : 
-                           userInfo.role === 'admin' ? '🛡️ Administrador' : '👤 Usuário';
+                               userInfo.role === 'admin' ? '🛡️ Administrador' : '👤 Usuário';
             const verifiedText = userInfo.verified ? '✅ Verificado' : '❌ Não Verificado';
             
             alert(`👤 Perfil de ${currentUser}\n\n` +
@@ -589,11 +574,11 @@
         
         function shareProfile() {
             const shareText = `🎮 Confira meu perfil no EduPlay!\n\n` +
-                            `👤 ${currentUser}\n` +
-                            `🎯 12 jogos completados\n` +
-                            `⭐ 85% de taxa de acerto\n` +
-                            `🏆 2,450 pontos totais\n\n` +
-                            `Venha jogar comigo!`;
+                              `👤 ${currentUser}\n` +
+                              `🎯 12 jogos completados\n` +
+                              `⭐ 85% de taxa de acerto\n` +
+                              `🏆 2,450 pontos totais\n\n` +
+                              `Venha jogar comigo!`;
             
             if (navigator.share) {
                 navigator.share({
@@ -613,20 +598,16 @@
         
         function resetStats() {
             if (confirm('🔄 Tem certeza que deseja resetar suas estatísticas?\n\nEsta ação não pode ser desfeita!')) {
+                // Lógica para resetar as estatísticas na tela
                 document.getElementById('gamesCompleted').textContent = '0';
                 document.getElementById('successRate').textContent = '0%';
                 document.getElementById('totalTime').textContent = '0h 0m';
-                
-                alert('✅ Estatísticas resetadas com sucesso!\n\nVocê pode começar do zero agora.');
-                
-                // Simular restauração gradual das estatísticas
-                setTimeout(() => {
-                    document.getElementById('gamesCompleted').textContent = '12';
-                    document.getElementById('successRate').textContent = '85%';
-                    document.getElementById('totalTime').textContent = '2h 30m';
-                }, 3000);
+                alert('Suas estatísticas foram resetadas com sucesso!');
+            } else {
+                alert('Ação cancelada. Suas estatísticas não foram alteradas.');
             }
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97c7143bf528da2e',t:'MTc1NzQyNTAzMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+
+</body>
 </html>
