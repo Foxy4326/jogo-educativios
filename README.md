@@ -199,20 +199,232 @@
     
     <!-- Tela de Registro -->
     <div id="registerScreen" class="hidden min-h-screen flex items-center justify-center p-4">
-        <!-- ... (código anterior igual) ... -->
+        <div class="login-form rounded-2xl p-8 w-full max-w-md shadow-2xl">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-purple-600 mb-2">🎮 EduPlay</h1>
+                <p class="text-gray-600">Criar nova conta</p>
+            </div>
+            
+            <form id="registerForm" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Nome completo</label>
+                    <input type="text" id="fullName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Digite seu nome completo" required>
+                    <div id="fullNameError" class="error-message"></div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Nome de usuário</label>
+                    <input type="text" id="newUsername" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Escolha um nome de usuário" required>
+                    <div id="newUsernameError" class="error-message"></div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">E-mail</label>
+                    <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Digite seu e-mail" required>
+                    <div id="emailError" class="error-message"></div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Senha</label>
+                    <input type="password" id="newPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Crie uma senha" required>
+                    <div id="newPasswordError" class="error-message"></div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Confirmar senha</label>
+                    <input type="password" id="confirmPassword" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Digite a senha novamente" required>
+                    <div id="confirmPasswordError" class="error-message"></div>
+                </div>
+                
+                <div class="flex items-center">
+                    <input type="checkbox" id="terms" class="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded" required>
+                    <label for="terms" class="ml-2 block text-sm text-gray-700">Aceito os <a href="#" class="text-purple-600 hover:text-purple-800">termos de uso</a> e <a href="#" class="text-purple-600 hover:text-purple-800">política de privacidade</a></label>
+                </div>
+                <div id="termsError" class="error-message"></div>
+                
+                <button type="submit" id="registerButton" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105 flex justify-center items-center">
+                    <span id="registerText">Criar conta</span>
+                    <div id="registerSpinner" class="loading-spinner ml-2"></div>
+                </button>
+            </form>
+            
+            <div class="mt-6 text-center">
+                <p class="text-sm text-gray-600">Já tem conta? 
+                    <button id="backToLogin" class="text-purple-600 hover:text-purple-800 font-medium">Fazer login</button>
+                </p>
+            </div>
+        </div>
     </div>
     
     <!-- Tela Principal de Jogos -->
     <div id="gameScreen" class="hidden min-h-screen">
-        <!-- ... (código anterior igual) ... -->
+        <header class="bg-white shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center py-4">
+                    <div class="flex items-center">
+                        <h1 class="text-2xl font-bold text-purple-600">🎮 EduPlay</h1>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span id="welcomeUser" class="text-gray-700 font-medium"></span>
+                        <button id="logoutBtn" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition duration-300">
+                            Sair
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-white mb-4">Escolha seu Jogo Educativo!</h2>
+                <p class="text-xl text-white opacity-90">Aprenda brincando com nossos jogos interativos</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="game-card bg-white rounded-2xl p-6 shadow-lg cursor-pointer" onclick="startGame('math')">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">🔢</div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Quiz de Matemática</h3>
+                        <p class="text-gray-600 mb-4">Teste seus conhecimentos em matemática com problemas divertidos!</p>
+                        <div class="flex justify-center items-center space-x-2 text-sm text-gray-500">
+                            <span>⭐ Nível: Iniciante</span>
+                            <span>•</span>
+                            <span>⏱️ 10 min</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-card bg-white rounded-2xl p-6 shadow-lg cursor-pointer" onclick="startGame('words')">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">📝</div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Palavras Cruzadas</h3>
+                        <p class="text-gray-600 mb-4">Expanda seu vocabulário com palavras cruzadas educativas!</p>
+                        <div class="flex justify-center items-center space-x-2 text-sm text-gray-500">
+                            <span>⭐ Nível: Intermediário</span>
+                            <span>•</span>
+                            <span>⏱️ 15 min</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-card bg-white rounded-2xl p-6 shadow-lg cursor-pointer" onclick="startGame('science')">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">🔬</div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Quiz de Ciências</h3>
+                        <p class="text-gray-600 mb-4">Descubra os mistérios da ciência de forma divertida!</p>
+                        <div class="flex justify-center items-center space-x-2 text-sm text-gray-500">
+                            <span>⭐ Nível: Avançado</span>
+                            <span>•</span>
+                            <span>⏱️ 12 min</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-card bg-white rounded-2xl p-6 shadow-lg cursor-pointer" onclick="startGame('geography')">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">🌍</div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Geografia Mundial</h3>
+                        <p class="text-gray-600 mb-4">Explore países, capitais e culturas ao redor do mundo!</p>
+                        <div class="flex justify-center items-center space-x-2 text-sm text-gray-500">
+                            <span>⭐ Nível: Intermediário</span>
+                            <span>•</span>
+                            <span>⏱️ 20 min</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-card bg-white rounded-2xl p-6 shadow-lg cursor-pointer" onclick="startGame('history')">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">📚</div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">História do Brasil</h3>
+                        <p class="text-gray-600 mb-4">Viaje no tempo e aprenda sobre a história brasileira!</p>
+                        <div class="flex justify-center items-center space-x-2 text-sm text-gray-500">
+                            <span>⭐ Nível: Avançado</span>
+                            <span>•</span>
+                            <span>⏱️ 18 min</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-card bg-white rounded-2xl p-6 shadow-lg cursor-pointer" onclick="startGame('english')">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">🇺🇸</div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Inglês Básico</h3>
+                        <p class="text-gray-600 mb-4">Aprenda inglês de forma interativa e divertida!</p>
+                        <div class="flex justify-center items-center space-x-2 text-sm text-gray-500">
+                            <span>⭐ Nível: Iniciante</span>
+                            <span>•</span>
+                            <span>⏱️ 15 min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="adminPanel" class="hidden mt-12 bg-gradient-to-r from-red-500 to-purple-600 rounded-2xl p-8 shadow-lg text-white">
+                <h3 class="text-3xl font-bold mb-6 text-center">🛡️ Painel Administrativo</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white bg-opacity-20 rounded-xl p-4 text-center">
+                        <div class="text-3xl font-bold">1,247</div>
+                        <p class="text-sm opacity-90">Usuários Totais</p>
+                    </div>
+                    <div class="bg-white bg-opacity-20 rounded-xl p-4 text-center">
+                        <div class="text-3xl font-bold">8,932</div>
+                        <p class="text-sm opacity-90">Jogos Jogados</p>
+                    </div>
+                    <div class="bg-white bg-opacity-20 rounded-xl p-4 text-center">
+                        <div class="text-3xl font-bold">156</div>
+                        <p class="text-sm opacity-90">Usuários Online</p>
+                    </div>
+                    <div class="bg-white bg-opacity-20 rounded-xl p-4 text-center">
+                        <div class="text-3xl font-bold">99.2%</div>
+                        <p class="text-sm opacity-90">Uptime</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <button onclick="manageUsers()" class="bg-white bg-opacity-20 hover:bg-opacity-30 rounded-xl p-4 transition duration-300">
+                        <div class="text-2xl mb-2">👥</div>
+                        <div class="font-semibold">Gerenciar Usuários</div>
+                        <div class="text-sm opacity-90">Visualizar e editar contas</div>
+                    </button>
+                    
+                    <button onclick="manageGames()" class="bg-white bg-opacity-20 hover:bg-opacity-30 rounded-xl p-4 transition duration-300">
+                        <div class="text-2xl mb-2">🎮</div>
+                        <div class="font-semibold">Gerenciar Jogos</div>
+                        <div class="text-sm opacity-90">Adicionar/editar jogos</div>
+                    </button>
+                    
+                    <button onclick="viewReports()" class="bg-white bg-opacity-20 hover:bg-opacity-30 rounded-xl p-4 transition duration-300">
+                        <div class="text-2xl mb-2">📊</div>
+                        <div class="font-semibold">Relatórios</div>
+                        <div class="text-sm opacity-90">Estatísticas detalhadas</div>
+                    </button>
+                </div>
+            </div>
+        </main>
     </div>
     
     <!-- Modal de Seleção de Jogo -->
     <div id="gameModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-        <!-- ... (código anterior igual) ... -->
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full">
+            <div class="text-center">
+                <div id="gameIcon" class="text-6xl mb-4"></div>
+                <h3 id="gameTitle" class="text-2xl font-bold text-gray-800 mb-4"></h3>
+                <p id="gameDescription" class="text-gray-600 mb-6"></p>
+                <div class="space-y-3">
+                    <button onclick="playGame()" class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-4 rounded-lg transition duration-300">
+                        🎮 Jogar Agora
+                    </button>
+                    <button onclick="closeGameModal()" class="w-full bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 px-4 rounded-lg transition duration-300">
+                        Voltar
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Tela do Quiz de Matemática -->
+    <!-- Telas dos Jogos -->
+    <!-- Quiz de Matemática -->
     <div id="mathGame" class="game-screen">
         <div class="min-h-screen bg-gradient-to-br from-blue-400 to-purple-600 p-4">
             <div class="max-w-4xl mx-auto">
@@ -220,7 +432,7 @@
                     <div class="flex justify-between items-center mb-6">
                         <h1 class="text-3xl font-bold text-gray-800">🔢 Quiz de Matemática</h1>
                         <button onclick="closeGame('mathGame')" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
-                            Voltar
+                            Voltar ao Menu
                         </button>
                     </div>
                     
@@ -235,7 +447,7 @@
                     </div>
                     
                     <div id="mathQuestions" class="space-y-4">
-                        <!-- As perguntas serão inseridas aqui via JavaScript -->
+                        <!-- Perguntas serão carregadas aqui -->
                     </div>
                     
                     <div id="mathResults" class="hidden text-center py-8">
@@ -254,7 +466,7 @@
         </div>
     </div>
 
-    <!-- Tela de Palavras Cruzadas -->
+    <!-- Palavras Cruzadas -->
     <div id="wordsGame" class="game-screen">
         <div class="min-h-screen bg-gradient-to-br from-green-400 to-blue-500 p-4">
             <div class="max-w-4xl mx-auto">
@@ -262,7 +474,7 @@
                     <div class="flex justify-between items-center mb-6">
                         <h1 class="text-3xl font-bold text-gray-800">📝 Palavras Cruzadas</h1>
                         <button onclick="closeGame('wordsGame')" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
-                            Voltar
+                            Voltar ao Menu
                         </button>
                     </div>
                     
@@ -270,20 +482,20 @@
                         <div>
                             <h3 class="text-xl font-bold mb-4">Dicas Horizontais:</h3>
                             <ul class="space-y-2 text-gray-700">
-                                <li>1. Capital do Brasil</li>
-                                <li>3. Maior planeta do sistema solar</li>
-                                <li>5. Animal que mia</li>
+                                <li>1. Capital do Brasil (8 letras)</li>
+                                <li>3. Maior planeta do sistema solar (7 letras)</li>
+                                <li>5. Animal que mia (4 letras)</li>
                             </ul>
                             
                             <h3 class="text-xl font-bold mt-6 mb-4">Dicas Verticais:</h3>
                             <ul class="space-y-2 text-gray-700">
-                                <li>2. Cor do céu</li>
-                                <li>4. Fruta vermelha</li>
+                                <li>2. Cor do céu (4 letras)</li>
+                                <li>4. Fruta vermelha (8 letras)</li>
                             </ul>
                         </div>
                         
                         <div class="flex justify-center">
-                            <div id="crosswordGrid" class="crossword-grid grid-cols-5">
+                            <div id="crosswordGrid" class="crossword-grid">
                                 <!-- Grade será gerada via JavaScript -->
                             </div>
                         </div>
@@ -302,7 +514,7 @@
         </div>
     </div>
 
-    <!-- Tela do Quiz de Ciências -->
+    <!-- Quiz de Ciências -->
     <div id="scienceGame" class="game-screen">
         <div class="min-h-screen bg-gradient-to-br from-orange-400 to-red-500 p-4">
             <div class="max-w-4xl mx-auto">
@@ -310,19 +522,19 @@
                     <div class="flex justify-between items-center mb-6">
                         <h1 class="text-3xl font-bold text-gray-800">🔬 Quiz de Ciências</h1>
                         <button onclick="closeGame('scienceGame')" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
-                            Voltar
+                            Voltar ao Menu
                         </button>
                     </div>
                     
-                    <div id="scienceQuestions">
-                        <!-- Perguntas de ciências serão inseridas aqui -->
+                    <div id="scienceQuestions" class="space-y-6">
+                        <!-- Perguntas de ciências serão carregadas aqui -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Tela de Geografia -->
+    <!-- Geografia Mundial -->
     <div id="geographyGame" class="game-screen">
         <div class="min-h-screen bg-gradient-to-br from-teal-400 to-blue-500 p-4">
             <div class="max-w-4xl mx-auto">
@@ -330,19 +542,19 @@
                     <div class="flex justify-between items-center mb-6">
                         <h1 class="text-3xl font-bold text-gray-800">🌍 Geografia Mundial</h1>
                         <button onclick="closeGame('geographyGame')" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
-                            Voltar
+                            Voltar ao Menu
                         </button>
                     </div>
                     
                     <div id="geographyContent">
-                        <!-- Conteúdo de geografia será inserido aqui -->
+                        <!-- Conteúdo será carregado aqui -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Tela de História -->
+    <!-- História do Brasil -->
     <div id="historyGame" class="game-screen">
         <div class="min-h-screen bg-gradient-to-br from-amber-400 to-orange-500 p-4">
             <div class="max-w-4xl mx-auto">
@@ -350,19 +562,19 @@
                     <div class="flex justify-between items-center mb-6">
                         <h1 class="text-3xl font-bold text-gray-800">📚 História do Brasil</h1>
                         <button onclick="closeGame('historyGame')" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
-                            Voltar
+                            Voltar ao Menu
                         </button>
                     </div>
                     
                     <div id="historyContent">
-                        <!-- Conteúdo de história será inserido aqui -->
+                        <!-- Conteúdo será carregado aqui -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Tela de Inglês -->
+    <!-- Inglês Básico -->
     <div id="englishGame" class="game-screen">
         <div class="min-h-screen bg-gradient-to-br from-indigo-400 to-purple-500 p-4">
             <div class="max-w-4xl mx-auto">
@@ -370,12 +582,12 @@
                     <div class="flex justify-between items-center mb-6">
                         <h1 class="text-3xl font-bold text-gray-800">🇺🇸 Inglês Básico</h1>
                         <button onclick="closeGame('englishGame')" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">
-                            Voltar
+                            Voltar ao Menu
                         </button>
                     </div>
                     
                     <div id="englishContent">
-                        <!-- Conteúdo de inglês será inserido aqui -->
+                        <!-- Conteúdo será carregado aqui -->
                     </div>
                 </div>
             </div>
@@ -383,7 +595,7 @@
     </div>
 
     <script>
-        // Sistema de Autenticação (mantido igual)
+        // Sistema de Autenticação
         class AuthSystem {
             constructor() {
                 this.users = this.loadUsers();
@@ -546,7 +758,12 @@
         // Inicializar sistema de autenticação
         const authSystem = new AuthSystem();
         
-        // Dados dos Jogos
+        // Variáveis globais
+        let currentGame = '';
+        let currentMathQuestion = 0;
+        let mathScore = 0;
+
+        // Dados dos jogos
         const games = {
             math: {
                 icon: '🔢',
@@ -627,10 +844,6 @@
             }
         ];
 
-        // Estado dos jogos
-        let currentMathQuestion = 0;
-        let mathScore = 0;
-
         // Inicializar a aplicação
         document.addEventListener('DOMContentLoaded', function() {
             const activeUser = authSystem.checkActiveSession();
@@ -649,7 +862,7 @@
             initializeCrossword();
         });
 
-        // Funções de Autenticação (mantidas iguais)
+        // Funções de Autenticação
         async function handleLogin(e) {
             e.preventDefault();
             
@@ -748,16 +961,6 @@
             if (user.role === 'admin' || user.role === 'owner') {
                 document.getElementById('adminPanel').classList.remove('hidden');
             }
-            
-            if (user.username === 'vitor202') {
-                setTimeout(() => {
-                    alert('🎉 Bem-vindo de volta, Vitor!\n\n👑 Você é o dono verificado do site!\nAcesso total ao painel administrativo liberado.');
-                }, 500);
-            } else if (user.role === 'admin') {
-                setTimeout(() => {
-                    alert('🛡️ Bem-vindo, Administrador!\n\nVocê tem acesso ao painel administrativo.');
-                }, 500);
-            }
         }
         
         function showLoginScreen() {
@@ -812,9 +1015,19 @@
 
         // Funções dos Jogos
         function startGame(gameType) {
+            currentGame = gameType;
+            const game = games[gameType];
+            
+            document.getElementById('gameIcon').textContent = game.icon;
+            document.getElementById('gameTitle').textContent = game.title;
+            document.getElementById('gameDescription').textContent = game.description;
+            document.getElementById('gameModal').classList.remove('hidden');
+        }
+
+        function playGame() {
             closeGameModal();
             
-            switch(gameType) {
+            switch(currentGame) {
                 case 'math':
                     startMathGame();
                     break;
@@ -834,10 +1047,6 @@
                     startEnglishGame();
                     break;
             }
-        }
-
-        function playGame() {
-            startGame(currentGame);
         }
 
         function closeGameModal() {
@@ -977,28 +1186,19 @@
             document.getElementById('scienceGame').style.display = 'block';
             const container = document.getElementById('scienceQuestions');
             
-            container.innerHTML = `
-                <div class="text-center py-8">
-                    <div class="text-6xl mb-4">🔬</div>
-                    <h2 class="text-2xl font-bold mb-4">Quiz de Ciências</h2>
-                    <p class="text-gray-600 mb-6">Teste seus conhecimentos científicos!</p>
-                    <div class="space-y-4">
-                        ${scienceQuestions.map((q, index) => `
-                            <div class="question">
-                                <h3 class="text-lg font-bold mb-3">${q.question}</h3>
-                                <div class="grid grid-cols-2 gap-2">
-                                    ${q.options.map((opt, optIndex) => `
-                                        <button class="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded" 
-                                                onclick="alert('${optIndex === q.correct ? '✅ Correto!' : '❌ Incorreto!'}')">
-                                            ${opt}
-                                        </button>
-                                    `).join('')}
-                                </div>
-                            </div>
+            container.innerHTML = scienceQuestions.map((q, index) => `
+                <div class="question">
+                    <h3 class="text-lg font-bold mb-3">${q.question}</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        ${q.options.map((opt, optIndex) => `
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white p-3 rounded" 
+                                    onclick="alert('${optIndex === q.correct ? '✅ Correto!' : '❌ Incorreto!'}')">
+                                ${opt}
+                            </button>
                         `).join('')}
                     </div>
                 </div>
-            `;
+            `).join('');
         }
 
         // Geografia
@@ -1148,7 +1348,7 @@
             }
         });
 
-        // Funções do Painel Administrativo (mantidas iguais)
+        // Funções do Painel Administrativo
         function manageUsers() {
             if (authSystem.currentUser.role === 'owner' || authSystem.currentUser.role === 'admin') {
                 alert('👥 Gerenciamento de Usuários\n\n• Total de usuários: ' + Object.keys(authSystem.users).length);
@@ -1170,55 +1370,6 @@
                 alert('📊 Relatórios do Sistema\n\n• Uptime: 99.2%');
             } else {
                 alert('❌ Acesso negado! Apenas administradores podem acessar esta função.');
-            }
-        }
-
-        // Funções Disponíveis para Todos os Usuários (mantidas iguais)
-        function viewProfile() {
-            const user = authSystem.currentUser;
-            const roleText = user.role === 'owner' ? '👑 Dono do Site' : 
-                               user.role === 'admin' ? '🛡️ Administrador' : '👤 Usuário';
-            
-            alert(`👤 Perfil de ${user.username}\n\n` +
-                  `🎯 Cargo: ${roleText}\n` +
-                  `📧 E-mail: ${user.email}`);
-        }
-        
-        function viewRanking() {
-            alert('🏆 Ranking Global - Top 10\n\n' +
-                  '1. 👑 MathMaster - 15,420 pts\n' +
-                  `Sua posição: #47 com 2,450 pts`);
-        }
-        
-        function viewAchievements() {
-            alert('🏅 Suas Conquistas\n\n' +
-                  '✅ Primeiro Jogo - Completou seu primeiro jogo\n' +
-                  '✅ Matemático Iniciante - 5 jogos de matemática');
-        }
-        
-        function viewHistory() {
-            alert('📈 Histórico de Jogos\n\n' +
-                  '🔢 Quiz de Matemática - 85% - 8 min (Hoje)');
-        }
-        
-        function changeTheme() {
-            alert('🎨 Tema alterado!');
-        }
-        
-        function downloadProgress() {
-            alert('💾 Preparando download do seu progresso...');
-        }
-        
-        function shareProfile() {
-            alert('📤 Compartilhar Perfil\n\nFuncionalidade em desenvolvimento!');
-        }
-        
-        function resetStats() {
-            if (confirm('🔄 Tem certeza que deseja resetar suas estatísticas?')) {
-                document.getElementById('gamesCompleted').textContent = '0';
-                document.getElementById('successRate').textContent = '0%';
-                document.getElementById('totalTime').textContent = '0h 0m';
-                alert('Suas estatísticas foram resetadas com sucesso!');
             }
         }
     </script>
